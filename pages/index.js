@@ -3,8 +3,9 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
+import SmallCard from "../components/SmallCard";
 
-export default function Home({exploreData}) {
+export default function Home({exploreData, cardsData}) {
   return (
     <div>
       <Head>
@@ -25,9 +26,26 @@ export default function Home({exploreData}) {
           <h2 className="text-4xl font-semibold pb-5">Explore Nearby</h2>
 
           {/* Pull data from endpoint */}
-          {exploreData?.map(item => (
-            <h1>{item.location}</h1>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {exploreData?.map((item, index) => (
+            <li key={index}>
+              <SmallCard image={item.img} location={item.location} distance={item.distance} />
+            </li>
           ))}
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-4xl font-semibold py-8">Live Anywhere</h2>
+
+          {/* Pull data from endpoint */}
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {cardsData?.map((item, index) => (
+            <li key={index}>
+              <SmallCard image={item.img} location={item.location} distance={item.distance} />
+            </li>
+          ))}
+          </ul>
         </section>
       </main>
     </div>
@@ -39,9 +57,14 @@ export async function getStaticProps() {
     (res) => res.json()
   );
 
+  const cardsData = await fetch("https://www.jsonkeeper.com/b/VHHT").then(
+    (res) => res.json()
+  );
+
   return {
     props: {
       exploreData,
+      cardsData,
     },
   }
 }
