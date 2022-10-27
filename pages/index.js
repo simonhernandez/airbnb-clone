@@ -40,7 +40,7 @@ export default function Home({exploreData, cardsData}) {
           <h2 className="text-4xl font-semibold py-8">Live Anywhere</h2>
 
           {/* Pull data from endpoint */}
-          <ul className="flex space-x-3 overflow-x-scroll py-3">
+          <ul className="flex space-x-3 overflow-x-scroll scrollbar-hide p-3 -ml-3">
           {cardsData?.map((item, index) => (
             <li key={index}>
               <MediumCard image={item.img} title={item.title} />
