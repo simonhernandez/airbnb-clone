@@ -5,8 +5,9 @@ import Header from "../components/Header";
 import Banner from "../components/Banner";
 import SmallCard from "../components/SmallCard";
 import MediumCard from "../components/MediumCard";
+import LargeCard from "../components/LargeCard";
 
-export default function Home({exploreData, cardsData}) {
+export default function Home({ exploreData, cardsData }) {
   return (
     <div>
       <Head>
@@ -28,11 +29,15 @@ export default function Home({exploreData, cardsData}) {
 
           {/* Pull data from endpoint */}
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {exploreData?.map((item, index) => (
-            <li key={index}>
-              <SmallCard image={item.img} location={item.location} distance={item.distance} />
-            </li>
-          ))}
+            {exploreData?.map((item, index) => (
+              <li key={index}>
+                <SmallCard
+                  image={item.img}
+                  location={item.location}
+                  distance={item.distance}
+                />
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -41,13 +46,20 @@ export default function Home({exploreData, cardsData}) {
 
           {/* Pull data from endpoint */}
           <ul className="flex space-x-3 overflow-x-scroll scrollbar-hide p-3 -ml-3">
-          {cardsData?.map((item, index) => (
-            <li key={index}>
-              <MediumCard image={item.img} title={item.title} />
-            </li>
-          ))}
+            {cardsData?.map((item, index) => (
+              <li key={index}>
+                <MediumCard image={item.img} title={item.title} />
+              </li>
+            ))}
           </ul>
         </section>
+
+        <LargeCard
+          image={"https://links.papareact.com/4cj"}
+          title={"The Greatest Outdoors"}
+          description={"Wishlists curated by Airbnb"}
+          buttonText={"Get inspired."}
+        />
       </main>
     </div>
   );
@@ -67,5 +79,5 @@ export async function getStaticProps() {
       exploreData,
       cardsData,
     },
-  }
+  };
 }
