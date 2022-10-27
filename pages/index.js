@@ -1,10 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import Header from '../components/Header'
-import Banner from '../components/Banner'
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import Header from "../components/Header";
+import Banner from "../components/Banner";
 
-export default function Home() {
+export default function Home({exploreData}) {
   return (
     <div>
       <Head>
@@ -15,10 +15,33 @@ export default function Home() {
 
       {/* Header */}
       <Header />
+
       {/* Banner */}
       <Banner />
-      {/* navbar */}
 
+      {/* Main */}
+      <main className="max-w-7xl mx-auto">
+        <section className="py-6">
+          <h2 className="text-4xl font-semibold pb-5">Explore Nearby</h2>
+
+          {/* Pull data from endpoint */}
+          {exploreData?.map(item => (
+            <h1>{item.location}</h1>
+          ))}
+        </section>
+      </main>
     </div>
-  )
+  );
+}
+
+export async function getStaticProps() {
+  const exploreData = await fetch("https://www.jsonkeeper.com/b/4G1G").then(
+    (res) => res.json()
+  );
+
+  return {
+    props: {
+      exploreData,
+    },
+  }
 }
